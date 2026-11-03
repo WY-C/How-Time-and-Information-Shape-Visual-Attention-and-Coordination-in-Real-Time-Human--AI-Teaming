@@ -1,0 +1,22 @@
+{
+  "models": [
+    {
+      "name": "gaze1200_17m",
+      "checkpoint": "final_model/runs/gaze_corrected_memory1200_20m_20260827_141207/checkpoints/step_017000000.pt"
+    }
+  ],
+  "evaluation": {
+    "decision_times": [200, 400, 600],
+    "horizons": [0, 2, 4],
+    "fixation_shape": "plus",
+    "episodes": 30,
+    "episode_length": 400,
+    "seed_start": 20260826,
+    "device": "cuda",
+    "gaze_mode": "stochastic",
+    "action_mode": "stochastic",
+    "bootstrap_iterations": 20000,
+    "bootstrap_seed": 20260826,
+    "aoi_precedence": ["self", "partner", "preview"]
+  }
+}

@@ -1,0 +1,56 @@
+# Python and test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments and secrets
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Runtime output
+*.log
+*.jsonl
+wandb/
+logs/
+final_model/runs/*
+!final_model/runs/.gitkeep
+final_model/eval/results/
+final_model/eval_results/
+final_model/eval/actionnet_*/
+final_model/eval/*manifest*.json
+!final_model/eval/gaze_behavior_manifest.example.json
+final_model/reports/
+final_model/server_parallel/runs/
+final_model/server_parallel/reports/
+final_model/server_parallel/wandb/
+
+# Local-only source backup and regenerated historical output
+data/backups/*
+!data/backups/README.md
+data/analysis/legacy/
+
+# Keep the bundled Overcooked runtime only. ZSC-Eval is installed from the
+# pinned dependency in requirements.txt.
+/lib/*
+!/lib/overcooked_ai/
+!/lib/overcooked_ai/**
+
+# External HSP policy pool submodule
+/policy_pool/
+
+# Build/package output
+build/
+dist/
+*.egg-info/
+
+# Local study documents
+/유저스터디용_문서/
+
+# Archives are not canonical project data.
+*.7z
+*.zip

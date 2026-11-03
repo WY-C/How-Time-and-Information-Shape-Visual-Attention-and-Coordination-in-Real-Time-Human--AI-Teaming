@@ -1,0 +1,64 @@
+{
+  "benchmark_contract_version": "contract_v8",
+  "change_policy": "Joint action-input-delay calibration is evaluation-only. Training networks and checkpoints are unchanged; existing contracts v2-v7 remain frozen.",
+  "action_timing": {
+    "action_space": ["NORTH", "SOUTH", "EAST", "WEST", "STAY", "INTERACT"],
+    "all_actions_unmasked": true,
+    "evaluation_action_mode": "periodic_20ms_logit_commitment_joint_delay_stochastic_gaze",
+    "query_interval_ms": 20,
+    "query_times": "0,20,...,<decision_deadline",
+    "elapsed_time_definition": "absolute milliseconds since decision onset; never normalized by decision-window length",
+    "evidence": "raw top1 ActionNet logit - raw top2 ActionNet logit; algebraically log(p1/p2)",
+    "commitment_rules": {
+      "fixed": "tau(t) = tau",
+      "linear": "tau(t) = max(0, tau_start - tau_slope_per_ms * t_ms)",
+      "exponential": "tau(t) = tau_start * exp(-t_ms / tau_kappa_ms)"
+    },
+    "action_input_delay": "one nonnegative global fitted D shared by every T and Preview condition",
+    "input_arrival": "proposal_query_time_ms + action_input_delay_ms",
+    "threshold_crossing_effect": "an accepted proposal schedules its input D ms after its query",
+    "deadline_rule": "the most recent accepted proposal whose input arrives no later than the deadline is executed",
+    "recurrent_state": "all within-decision queries use pre-decision hidden; final query candidate commits once at the decision boundary"
+  },
+  "calibration": {
+    "parameters": {
+      "fixed": ["action_input_delay_ms", "tau"],
+      "linear": ["action_input_delay_ms", "tau_start", "tau_slope_per_ms"],
+      "exponential": ["action_input_delay_ms", "tau_start", "tau_kappa_ms"]
+    },
+    "tau_min": 0.0,
+    "targets": ["forced_stay_rate_by_T", "conditional_selected_action_latency_by_T"],
+    "objective": "mean_T(0.5*(forced_error/0.10)^2 + 0.5*(latency_error_ms/100)^2)",
+    "excluded_from_objective": [
+      "delivery", "reward", "revision_rate", "AOI", "gaze_allocation",
+      "fixation_count", "acquisition_count", "preview_viewing", "task_behavior"
+    ],
+    "model_seed_split_required": true,
+    "family_selection": "calibration objective only; exponential must improve over linear by more than 5 percent",
+    "validation_role": "held-out confirmation only; never parameter or family selection",
+    "offline_status": "exact replay of commitment and delay decisions on logged query trajectories; not an exact counterfactual environment rollout after actions diverge"
+  },
+  "human_targets": {
+    "forced_stay_rate": {"200": 0.354681, "400": 0.117695, "600": 0.074520},
+    "conditional_selected_action_latency_ms": {"200": 87.607603, "400": 211.564101, "600": 241.440052}
+  },
+  "proposal_semantics": {
+    "accepted": "logit_margin >= threshold_at_query",
+    "latest": "latest accepted proposal arriving no later than deadline",
+    "forced_stay": "no accepted proposal input arrives by deadline",
+    "intentional_stay": "accepted top1 action is STAY",
+    "canonical_latency": "first arrival time at which the eventual final selected action became current",
+    "canonical_revision": "first selected action differs from final selected action among non-timeout decisions",
+    "temporal_change": "every change of current selected action is counted"
+  },
+  "policy_sampling": {
+    "gaze_policy": "categorical sampling from GazeNet probabilities",
+    "action_policy": "deterministic top1 action after logit-margin commitment",
+    "action_sampling": false
+  },
+  "stay": {
+    "forced": "no accepted proposal arrival by deadline; execute STAY",
+    "intentional": "STAY is the latest accepted action arriving by deadline",
+    "mutually_exclusive": true
+  }
+}

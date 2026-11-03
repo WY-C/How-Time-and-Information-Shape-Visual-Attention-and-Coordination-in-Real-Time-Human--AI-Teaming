@@ -1,0 +1,163 @@
+{
+  "action_timing": {
+    "action_space": [
+      "NORTH",
+      "SOUTH",
+      "EAST",
+      "WEST",
+      "STAY",
+      "INTERACT"
+    ],
+    "all_actions_unmasked": true,
+    "deadline_query": false,
+    "evaluation_action_mode": "periodic_20ms_threshold",
+    "gaze_acquisition_at_query_applied_before_actionnet": true,
+    "gaze_timing_quantized": false,
+    "query_interval_ms": 20,
+    "query_times": "0,20,...,<decision_deadline",
+    "recurrent_state": "all within-decision queries use pre-decision hidden; final query candidate commits once at the decision boundary",
+    "threshold_rule": "max_probability >= global_tau"
+  },
+  "aoi": {
+    "overlapping_preview_allocation": "equal duration split across matched H1-H4 future steps",
+    "primary": "manuscript_preview_priority",
+    "primary_priority": [
+      "Action Preview",
+      "Player",
+      "Teammate",
+      "Other"
+    ],
+    "sensitivity": "v6_overlap_split_sensitivity",
+    "sensitivity_use": "separate output only; never mixed into primary human_reference"
+  },
+  "benchmark_contract_version": "contract_v2",
+  "change_policy": "Any metric-definition or regression-target change requires a new contract version; do not edit contract_v2 in place.",
+  "checkpoint_pairing": {
+    "action_checkpoint_required": true,
+    "gaze_checkpoint_required": true,
+    "mismatched_memory_pair_status": "PROVISIONAL",
+    "tau_calibration_anchor": "2400-ms ActionNet with an explicitly confirmed matching GazeNet"
+  },
+  "context_dependent_rq3": {
+    "primary_output_available": false,
+    "status": "CANNOT_VERIFY_PROVENANCE"
+  },
+  "fixation_boundaries": {
+    "carryover_decomposition": {
+      "carryover": "fixation_start < decision_onset",
+      "new": "fixation_start >= decision_onset"
+    },
+    "first_new_saccade": {
+      "distance": "Euclidean board-tile distance from preceding physical fixation",
+      "indicator": "distance > 3 tiles",
+      "offboard_or_unknown": "excluded"
+    },
+    "paper_visual_sampling": {
+      "new": "fixation_start > decision_onset"
+    },
+    "strict_teammate_preview_check": {
+      "fixation_onset": "phase_start <= fixation_start < phase_end",
+      "minimum_source_specific_phase_dwell_ms": 60
+    }
+  },
+  "human_regression_targets": {
+    "post_first_input_fraction": {
+      "200": 0.3978498,
+      "400": 0.4571253,
+      "600": 0.590267
+    },
+    "process_eligibility": {
+      "decisions": 163260,
+      "participants": 35,
+      "rule": "participant session mean gaze validity >= .80 AND trial mean gaze validity >= .90 AND exactly 180 decisions",
+      "trials": 907
+    },
+    "revision": {
+      "200": {
+        "denominator": 37635,
+        "numerator": 754
+      },
+      "400": {
+        "denominator": 51456,
+        "numerator": 2482
+      },
+      "600": {
+        "denominator": 53974,
+        "numerator": 3156
+      }
+    },
+    "selected_action_latency_ms": {
+      "200": 87.6076,
+      "400": 211.5641,
+      "600": 241.4401
+    },
+    "task_events": {
+      "ai_delivery": 3313,
+      "pot_completion": 2622,
+      "redundant_onion": 655,
+      "redundant_release_at_deposit": 146,
+      "terminal_step_179_delivery": 19
+    }
+  },
+  "layouts": {
+    "human": [
+      "counter_circuit",
+      "double_rings",
+      "unident_s_hard_onion"
+    ],
+    "model_direct_comparison": [
+      "counter_circuit"
+    ],
+    "unsupported_model_cells": "explicit unavailable"
+  },
+  "post_input_metrics": {
+    "post_first_input_fraction": {
+      "aggregation": "participant x Time x Preview duration ratio-of-sums, then participant marginal mean by Time",
+      "denominator": "classified gaze duration from onset to execution",
+      "numerator": "classified gaze duration from literal first input to execution"
+    },
+    "post_selected_action_fraction": {
+      "aggregation": "participant x Time x Preview duration ratio-of-sums, then participant marginal mean by Time",
+      "denominator": "classified gaze duration from onset to execution",
+      "numerator": "classified gaze duration from resolved selected-action input to execution",
+      "regression_target": null
+    }
+  },
+  "revision": {
+    "canonical_had_revision": "first selected action != final selected action among non-timeout decisions",
+    "repeated_same_action_crossing": "not a revision",
+    "temporal_diagnostic": "store every change of current selected action"
+  },
+  "selected_action_input": {
+    "first_equals_final": "first timestamp",
+    "first_not_final": "first timestamp at which the eventual final action became current",
+    "no_input": "missing timeout",
+    "only_one_input_record": "timestamp of the available record"
+  },
+  "stay": {
+    "forced": "no threshold crossing before deadline; execute STAY",
+    "intentional": "STAY itself crosses threshold and is selected",
+    "mutually_exclusive": true
+  },
+  "task_event_detector": {
+    "ai_final_onion_deposit_requires": [
+      "AI orientation/facing",
+      "AI held onion",
+      "AI Interact action",
+      "target pot state",
+      "actual 2-to-ready transition"
+    ],
+    "opportunity_adjusted_gee": {
+      "covariance": "robust",
+      "family": "participant-clustered binomial logit",
+      "formula": "outcome ~ Time + Preview + Layout + trial_order_c + event_window_input_fraction + event_length_decisions",
+      "working_correlation": "Exchangeable"
+    }
+  },
+  "windows": {
+    "full": "decision_onset to execution/deadline",
+    "initial_fixed_200ms": "decision_onset to min(decision_onset + 200 ms, execution/deadline)",
+    "post_first_input": "literal first input to execution/deadline",
+    "post_selected_action": "resolved selected-action input to execution/deadline"
+  }
+}

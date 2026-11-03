@@ -1,0 +1,34 @@
+# Core experiment and analysis
+numpy==1.26.4
+pandas==1.5.3
+scipy==1.15.3
+scikit-learn==1.7.2
+statsmodels==0.14.6
+patsy==1.0.2
+pingouin==0.5.5
+matplotlib==3.10.9
+seaborn==0.13.2
+openpyxl==3.1.5
+joblib==1.5.3
+pygame==2.6.1
+gymnasium==1.3.0
+tqdm==4.67.3
+PyYAML==6.0.3
+psutil==7.2.2
+dill==0.4.1
+cloudpickle==3.1.2
+tensorboardX==2.6.5
+wandb==0.28.0
+setproctitle==1.3.7
+
+# Install the PyTorch build appropriate for the target CPU/CUDA environment
+# first when GPU training is required.
+torch==2.7.0
+torchvision==0.22.0
+
+# Bundled game runtime and the HSP/ZSC-Eval implementation used by this study.
+-e ./lib/overcooked_ai
+zsceval @ git+https://github.com/sjtu-marl/ZSC-Eval.git@f940869afc42b688332a385892d8dbb57a190f95
+
+# Required only on the Windows experiment machine with a Tobii device.
+tobii-research==2.1.0; platform_system == "Windows"

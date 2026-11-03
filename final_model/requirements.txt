@@ -1,0 +1,8 @@
+# Versions used for the verified local CPU test/smoke environment.
+numpy==1.21.5
+torch==2.8.0
+torchvision==0.23.0
+tqdm==4.64.1
+pytest==7.1.2
+psutil==5.9.0
+# Optional: install a server-compatible wandb release only when --wandb-mode is enabled.

@@ -1,0 +1,36 @@
+{
+  "benchmark_contract_version": "contract_v9",
+  "change_policy": "Evaluation-only no-action-commitment comparator. Training networks, checkpoints, calibration, and existing contracts v2-v8 remain unchanged.",
+  "action_timing": {
+    "evaluation_action_mode": "periodic_20ms_no_commitment_stochastic_gaze",
+    "query_interval_ms": 20,
+    "query_times": "0,20,...,<decision_deadline",
+    "confidence_threshold": null,
+    "logit_margin_threshold": null,
+    "action_input_delay_ms": 0.0,
+    "proposal_rule": "every ActionNet query immediately records its deterministic top-1 argmax as the latest proposal",
+    "deadline_rule": "execute the latest proposal generated before the decision deadline",
+    "forced_stay": "none from threshold failure because every query creates a proposal",
+    "intentional_stay": "the latest top-1 proposal is STAY",
+    "recurrent_state": "all within-decision queries use pre-decision hidden; final query candidate commits once at the decision boundary"
+  },
+  "preserved_constraints": [
+    "200/400/600 ms decision deadlines",
+    "gaze-shift latency and 60 ms acquisition dwell",
+    "perceptual and memory constraints",
+    "preview acquisition semantics",
+    "stochastic frozen GazeNet policy",
+    "bounded observations",
+    "frozen deterministic-top1 ActionNet policy"
+  ],
+  "interpretation": {
+    "selected_action_latency": "diagnostic only; not a human response-time reproduction target",
+    "pre_post_input_gaze": "diagnostic only and not directly comparable with calibrated commitment modes",
+    "main_gaze_window": "full decision window"
+  },
+  "policy_sampling": {
+    "gaze_policy": "categorical sampling from GazeNet probabilities",
+    "action_policy": "deterministic top1 at every periodic query",
+    "action_sampling": false
+  }
+}
