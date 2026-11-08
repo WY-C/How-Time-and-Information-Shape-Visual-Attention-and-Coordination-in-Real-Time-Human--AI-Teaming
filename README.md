@@ -123,5 +123,4 @@ on Hugging Face as a Git submodule.
 To clone the repository with all submodules:
 
 ```bash
-git clone --recurse-submodules <repository-url>
 
