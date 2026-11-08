@@ -33,6 +33,16 @@ git submodule update --init --recursive
 
 For GPU training, install the PyTorch build appropriate for the target CUDA environment.
 
+## Pretrained Policy Pool
+
+The pretrained policy pool is maintained separately
+on Hugging Face as a Git submodule.
+
+- Repository: [ZSC-Eval-policy_pool](https://huggingface.co/Leoxxxxh/ZSC-Eval-policy_pool)
+- Pinned commit: `a39b45a326c6fb9c4aee79550903a7de702c6974`
+
+
+
 ## Running the user study
 
 Start a participant session with the tutorial and calibration:
@@ -111,11 +121,3 @@ Some integration tests under `final_model/server_parallel/tests/` require CUDA a
 ## Citation
 
 Citation information will be added after publication of the associated paper.
-
-## Pretrained Policy Pool
-
-The pretrained policy pool is maintained separately
-on Hugging Face as a Git submodule.
-
-- Repository: [ZSC-Eval-policy_pool](https://huggingface.co/Leoxxxxh/ZSC-Eval-policy_pool)
-- Pinned commit: `a39b45a326c6fb9c4aee79550903a7de702c6974`
