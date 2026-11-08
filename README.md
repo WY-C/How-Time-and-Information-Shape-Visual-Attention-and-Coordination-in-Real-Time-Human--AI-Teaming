@@ -33,7 +33,7 @@ git submodule update --init --recursive
 
 For GPU training, install the PyTorch build appropriate for the target CUDA environment.
 
-## Pretrained Policy Pool
+### Pretrained Policy Pool
 
 The pretrained policy pool is maintained separately
 on Hugging Face as a Git submodule.
