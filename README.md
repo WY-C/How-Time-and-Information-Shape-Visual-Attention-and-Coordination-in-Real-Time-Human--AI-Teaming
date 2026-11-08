@@ -41,7 +41,14 @@ on Hugging Face as a Git submodule.
 - Repository: [ZSC-Eval-policy_pool](https://huggingface.co/Leoxxxxh/ZSC-Eval-policy_pool)
 - Pinned commit: `a39b45a326c6fb9c4aee79550903a7de702c6974`
 
+#### Associated Paper
 
+If you use this policy pool, please cite the following paper:
+
+Wang, X., Zhang, S., Zhang, W., Dong, W., Chen, J., Wen, Y., & Zhang, W. (2024).
+[ZSC-Eval: An Evaluation Toolkit and Benchmark for Multi-agent Zero-shot Coordination](https://proceedings.neurips.cc/paper_files/paper/2024/hash/54a7139c548c88e288aa0fcd2bcbeceb-Abstract-Datasets_and_Benchmarks_Track.html).
+Advances in Neural Information Processing Systems, 37, 47344–47377.
+https://doi.org/10.52202/079017-1501.
 
 ## Running the user study
 
