@@ -119,8 +119,3 @@ on Hugging Face as a Git submodule.
 
 - Repository: [ZSC-Eval-policy_pool](https://huggingface.co/Leoxxxxh/ZSC-Eval-policy_pool)
 - Pinned commit: `a39b45a326c6fb9c4aee79550903a7de702c6974`
-
-To clone the repository with all submodules:
-
-```bash
-
