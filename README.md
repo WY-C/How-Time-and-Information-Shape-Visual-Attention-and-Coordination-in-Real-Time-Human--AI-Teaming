@@ -112,7 +112,7 @@ Some integration tests under `final_model/server_parallel/tests/` require CUDA a
 
 Citation information will be added after publication of the associated paper.
 
-### Pretrained Policy Pool
+## Pretrained Policy Pool
 
 The pretrained policy pool is maintained separately
 on Hugging Face as a Git submodule.
